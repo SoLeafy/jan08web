@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>jan08web</display-name>
+	<welcome-file-list>
+		<welcome-file>index</welcome-file>
+	</welcome-file-list>
+	
+	<session-config>
+		<session-timeout>20</session-timeout> <!-- 기본 30분이지만 60분으로. 3600 떠야함. -->
+	</session-config>
+
+	<!-- <servlet> <servlet-name>board123</servlet-name> <jsp-file>/board.jsp</jsp-file> 
+		</servlet> <servlet-mapping> <servlet-name>board123</servlet-name> <url-pattern>/board</url-pattern> 
+		</servlet-mapping> -->
+
+	<!-- 에러페이지 설정하기 -->
+	<error-page>
+		<error-code>403</error-code>
+		<location>/error.jsp</location> <!-- 보통 각 에러마다 error403.jsp 이런 식으로 만듦 -->
+	</error-page>
+
+	<!-- jsp 못 불러오게 하는 내용. 무조건 서블릿 통과하게 -->
+	<security-constraint>
+		<display-name>JSP Protection</display-name>
+		<web-resource-collection>
+			<web-resource-name>SecureJSPPages</web-resource-name>
+			<url-pattern>*.jsp</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>nobody</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-role>
+		<description>
+			Nobody should be in this role so JSP files are protected
+			from direct access.
+		</description>
+		<role-name>nobody</role-name>
+	</security-role>
+
+</web-app>

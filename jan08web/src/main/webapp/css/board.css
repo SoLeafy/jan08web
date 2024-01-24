@@ -1,0 +1,78 @@
+table {
+	width: 900px;
+	height: 400px;
+	border-collapse: collapse;
+}
+
+tr:hover{
+	background-color: #F9A98B;
+}
+th{
+	background-color: #F8A07F;
+	border-bottom: 2px solid white;
+}
+td{
+	border-bottom: 1px solid #7DB53A;
+	text-align: center;
+	
+}
+.title{
+	width: 50%;
+	text-align: left;
+}
+.w1{width: 10%}
+.w2{width: 20%}
+footer{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 30px;
+	background-color: #7DB53A;
+}
+.title a{
+	text-decoration: none;
+}
+.title a:visited{
+	color: black;
+}
+.title a:link{
+	color: black;
+}
+.title a:hover{
+	color: #d8e2dc;
+}
+
+.paging{
+	margin: 0 auto;
+	width: 550px;
+	height: 50px;
+	background-color: white;
+	margin-top: 10px;
+	line-height: 50px;
+	text-align: center;
+}
+.paging button{
+	height: 26px;
+	width: 30px;
+	font-size: 15px;
+	border: none;
+	border-radius: 3px; 
+	background-color: #ecf39e;
+}
+.paging button:hover{
+	cursor: pointer;
+}
+#currentBtn{
+	background-color: #F57F54;
+	color: white;
+	border: none;
+	border-radius: 10px;
+}
+span {
+	font-size: small;
+	font-weight: bolder;
+	color: #fb8500;
+	min-width: 20px;
+	height: 10px;
+	border-radius: 15px;
+}

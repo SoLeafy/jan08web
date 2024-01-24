@@ -1,0 +1,32 @@
+@charset "UTF-8";
+/* @import url(""); 한 css가 다른 css 부르는 거 */
+/* 공동으로 사용하는 css
+전반적인 모든 페이지에 적용할 모양 */
+body {
+	margin: 0;
+	padding: 10px 0px 10px 0px;
+}
+article {
+	margin-top: 50px;
+}
+footer {
+	position: fixed;
+	bottom:0;
+	width: 100%;
+	height: 30px;
+	background-color:  #7DB53A;
+	text-align: center;
+}
+.mainStyle{
+	width: 900px;
+	margin: 0 auto;
+	padding-top: 30px;
+	padding-bottom: 50px;
+}
+#homeImage{
+	width: 100%;
+}
+.mainStyle h1{
+	color: #F57F54;
+}
+

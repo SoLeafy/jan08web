@@ -58,7 +58,7 @@ public class CafeDAO extends AbstractDAO {
 		return result;
 	}
 	
-	public List<Integer> notYet(){
+	public List<Integer> studentsDone(){
 		List<Integer> list = new ArrayList<Integer>();
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
@@ -79,19 +79,7 @@ public class CafeDAO extends AbstractDAO {
 			close(rs, pstmt, con);
 		}
 		
-		List<Integer> students = new ArrayList<Integer>();
-		for(int i = 1; i < 28; i++) {
-			students.add(i);
-		}
-		
-		//students에 있는 사람 중... list에 없는 사람. .contains
-		for(int i = 1; i < list.size(); i++) {
-			if(students.contains(list.get(i))) {
-				students.remove(list.get(i));
-			}
-		}
-		
-		return students;
+		return list;
 	}
 
 	public List<Integer> whoseMenu(String menu) {
@@ -108,6 +96,32 @@ public class CafeDAO extends AbstractDAO {
 			
 			while(rs.next()) {
 				int e = rs.getInt(1);
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		
+		return list;
+	}
+	
+	public List<Map<Integer, String>> teaMenu(String menu) {
+		List<Map<Integer, String>> list = new ArrayList<Map<Integer, String>>();
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT studentNo, menuComment FROM cafeview WHERE menu=? ORDER BY studentNo";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, menu);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Map<Integer, String> e = new HashMap<Integer, String>();
+				e.put(rs.getInt("studentNo"), rs.getString("menuComment"));
 				list.add(e);
 			}
 		} catch (SQLException e) {

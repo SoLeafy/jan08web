@@ -23,7 +23,20 @@
 }
 </style>
 <script type="text/javascript">
-
+$(document).ready(function(){
+	//페이지 로딩부터 라디오버튼 유무 검사...
+	let studentsDone = ${studentsDone };
+	console.log(studentsDone);
+	for(let i = 0; i < studentsDone.length; i++) {
+		//console.log($("#option" + studentsDone[i]).val());
+		//console.log(studentsDone[i] == $("#option" + studentsDone[i]).val());
+		if(studentsDone[i] == $("#option" + studentsDone[i]).val()){
+			$("#option" + studentsDone[i]).attr("disabled", true);
+		}
+	}
+	
+	
+});
 </script>
 
 </head>
@@ -37,92 +50,93 @@
 				<hr>
 				<h1>음료 주문</h1>
 				<span class="page-link"
-					onclick="url('https://composecoffee.com/menu/category/191')">Tea 메뉴 참고 링크</span>
+					onclick="url('https://composecoffee.com/menu/category/191')">Tea 메뉴 참고 링크 🌟</span>
+				<h3>수정 불가 ~ 신중하게 고르세요</h3>
 				<article>
 					<form action="./cafe" method="post">
 						<!-- 학생 번호 -->
 						<div class="studentNo-form">
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option1" value="1" autocomplete="off">
-						<label class="btn btn-light" for="option1">1</label>
+						<label class="btn btn-dark" for="option1">1</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option2" value="2" autocomplete="off">
-						<label class="btn btn-light" for="option2">2</label>
+						<label class="btn btn-dark" for="option2">2</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option3" value="3" autocomplete="off">
-						<label class="btn btn-light" for="option3">3</label>
+						<label class="btn btn-dark" for="option3">3</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option4" value="4" autocomplete="off">
-						<label class="btn btn-light" for="option4">4</label>
+						<label class="btn btn-dark" for="option4">4</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option5" value="5" autocomplete="off">
-						<label class="btn btn-light" for="option5">5</label>
+						<label class="btn btn-dark" for="option5">5</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option6" value="6" autocomplete="off">
-						<label class="btn btn-light" for="option6">6</label>
+						<label class="btn btn-dark" for="option6">6</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option7" value="7" autocomplete="off">
-						<label class="btn btn-light" for="option7">7</label>
+						<label class="btn btn-dark" for="option7">7</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option8" value="8" autocomplete="off">
-						<label class="btn btn-light" for="option8">8</label>
+						<label class="btn btn-dark" for="option8">8</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option9" value="9" autocomplete="off">
-						<label class="btn btn-light" for="option9">9</label>
+						<label class="btn btn-dark" for="option9">9</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option10" value="10" autocomplete="off">
-						<label class="btn btn-light" for="option10">10</label>
+						<label class="btn btn-dark" for="option10">10</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option11" value="11" autocomplete="off">
-						<label class="btn btn-light" for="option11">11</label>
+						<label class="btn btn-dark" for="option11">11</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option12" value="12" autocomplete="off">
-						<label class="btn btn-light" for="option12">12</label>
+						<label class="btn btn-dark" for="option12">12</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option13" value="13" autocomplete="off">
-						<label class="btn btn-light" for="option13">13</label>
+						<label class="btn btn-dark" for="option13">13</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option14" value="14" autocomplete="off">
-						<label class="btn btn-light" for="option14">14</label>
+						<label class="btn btn-dark" for="option14">14</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option15" value="15" autocomplete="off">
-						<label class="btn btn-light" for="option15">15</label>
+						<label class="btn btn-dark" for="option15">15</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option16" value="16" autocomplete="off">
-						<label class="btn btn-light" for="option16">16</label>
+						<label class="btn btn-dark" for="option16">16</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option17" value="17" autocomplete="off">
-						<label class="btn btn-light" for="option17">17</label>
+						<label class="btn btn-dark" for="option17">17</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option18" value="18" autocomplete="off">
-						<label class="btn btn-light" for="option18">18</label>
+						<label class="btn btn-dark" for="option18">18</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option19" value="19" autocomplete="off">
-						<label class="btn btn-light" for="option19">19</label>
+						<label class="btn btn-dark" for="option19">19</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option20" value="20" autocomplete="off">
-						<label class="btn btn-light" for="option20">20</label>
+						<label class="btn btn-dark" for="option20">20</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option21" value="21" autocomplete="off">
-						<label class="btn btn-light" for="option21">21</label>
+						<label class="btn btn-dark" for="option21">21</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option22" value="22" autocomplete="off">
-						<label class="btn btn-light" for="option22">22</label>
+						<label class="btn btn-dark" for="option22">22</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option23" value="23" autocomplete="off">
-						<label class="btn btn-light" for="option23">23</label>
+						<label class="btn btn-dark" for="option23">23</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option24" value="24" autocomplete="off">
-						<label class="btn btn-light" for="option24">24</label>
+						<label class="btn btn-dark" for="option24">24</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option25" value="25" autocomplete="off">
-						<label class="btn btn-light" for="option25">25</label>
+						<label class="btn btn-dark" for="option25">25</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option26" value="26" autocomplete="off">
-						<label class="btn btn-light" for="option26">26</label>
+						<label class="btn btn-dark" for="option26">26</label>
 						
 						<input type="radio" class="btn-check" name="studentNo" id="option27" value="27" autocomplete="off">
-						<label class="btn btn-light" for="option27">선생님</label>
+						<label class="btn btn-dark" for="option27">선생님</label>
 						
 						</div>
 						<br>
@@ -155,6 +169,12 @@
 								class="form-check-label" for="flexRadioDefault5"> 안 먹기 </label>
 						</div>
 						<br>
+						</p>
+						원하는 티 메뉴 코멘트에 👇
+						<br>
+					    티 종류 : 자몽티 / 레몬티 / 유자티 / 복숭아티 / 자몽허니블랙티 / 페퍼민트티 / 캐모마일티 / 로즈마리티 / 얼그레이티 / 블랙퍼스트티
+					<br>
+					<br>
 						<div class="input-group mb-3">
 						  <span class="input-group-text" id="basic-addon1">의견</span>
 						  <input type="text" name="menu-comment" class="form-control" placeholder="코멘트" aria-label="Username" aria-describedby="basic-addon1">
@@ -185,19 +205,6 @@
 					<c:forEach items="${hotTeaList }" var="a">
 					${a },&ensp;
 					</c:forEach>
-					</p>
-					    자몽티
-					    레몬티
-					    유자티
-					    복숭아티
-					    자몽허니블랙티
-					    페퍼민트티
-					    캐모마일티
-					    로즈마리티
-					    얼그레이티
-					    블랙퍼스트티
-					<br>
-					<br>
 					<p>안 마시는 사람(총 인원 ${nothingTotal }명) : 
 					<c:forEach items="${nothingList }" var="a">
 					${a },&ensp;

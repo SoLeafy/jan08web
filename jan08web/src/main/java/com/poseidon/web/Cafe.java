@@ -31,21 +31,38 @@ public class Cafe extends HttpServlet {
 		int iceTeaCount = dao.countMenu("ice-tea");
 		int hotTeaCount = dao.countMenu("hot-tea");
 		int nothingCount = dao.countMenu("no-drink");
-		List<Integer> notYet = dao.notYet();
+		
+		//한 사람 안 한 사람 따로
+		List<Integer> studentsDone = dao.studentsDone();
+		
+		List<Integer> students = new ArrayList<Integer>();
+		for(int i = 1; i < 28; i++) {
+			students.add(i);
+		}
+		//students에 있는 사람 중... list에 없는 사람. .contains
+		for(int i = 1; i < studentsDone.size(); i++) {
+			if(students.contains(studentsDone.get(i))) {
+				students.remove(studentsDone.get(i));
+			}
+		}
+		
 		//누가 뭐 시켰는지
 		List<Integer> iceAmeList = dao.whoseMenu("ice-americano");
 		List<Integer> hotAmeList = dao.whoseMenu("hot-americano");
-		List<Integer> iceTeaList = dao.whoseMenu("ice-tea");
-		List<Integer> hotTeaList = dao.whoseMenu("hot-tea");
+		List<Map<Integer, String>> iceTeaList = dao.teaMenu("ice-tea");
+		List<Map<Integer, String>> hotTeaList = dao.teaMenu("hot-tea");
 		List<Integer> nothingList = dao.whoseMenu("no-drink");
 		
-		
+		//jsp로 보내기
+		//총인원
 		request.setAttribute("iceAmeTotal", iceAmeCount);
 		request.setAttribute("hotAmeTotal", hotAmeCount);
 		request.setAttribute("iceTeaTotal", iceTeaCount);
 		request.setAttribute("hotTeaTotal", hotTeaCount);
 		request.setAttribute("nothingTotal", nothingCount);
-		request.setAttribute("notYetList", notYet);
+		//안한사람과 한사람
+		request.setAttribute("notYetList", students);
+		request.setAttribute("studentsDone", studentsDone);
 		
 		request.setAttribute("iceAmeList", iceAmeList);
 		request.setAttribute("hotAmeList", hotAmeList);
@@ -74,8 +91,10 @@ public class Cafe extends HttpServlet {
 		
 		System.out.println("투표 입력 결과: " + result);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("cafe.jsp");
-		rd.forward(request, response);
+		// 이렇게 하면 jsp만 보여주니까 다시 GET으로 가게 sendRedirect를 써준다!!! (문제해결)
+		//RequestDispatcher rd = request.getRequestDispatcher("cafe.jsp");
+		//rd.forward(request, response);
+		response.sendRedirect("./cafe");
 	}
 
 }

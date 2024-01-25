@@ -144,7 +144,9 @@
 	margin: 0 6px 0 0;
 	padding: 5px;
 	width: calc(100% - 108px);
-	height: 80%;
+	/* height: 80%; */
+	min-height: 100px;
+	height: auto;
 	border: 0px;
 	float: left;
 	resize: none;

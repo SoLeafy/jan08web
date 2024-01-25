@@ -56,26 +56,77 @@
 				let cno = $(this).siblings(".cno").val();
 				//let content = $(this).parents(".comment").children(".ccomment").text();
 				let comment = $(this).parents(".chead").next(); //나중에 변경. //되네.. 아 부모의 다음,,
-				let recommentBox = '<div class="recommentBox">';
+				$(this).prev().hide();
+				$(this).hide();
 				comment.css('height', '110px');
 				comment.css('padding-top', '10px');
 				//comment.css('backgroundColor', '#eaf2d7');
 				//comment.css('resize', none);
+				let recommentBox = '<div class="recommentBox">';
 				//let commentChange = comment.html().replaceAll('<br>', '\r\n');
-				let commentChange = comment.html().replace(/<br>/g,'\r\n');
 				//alert(cno + " : " + comment.html());
-				//let recommentBox = '<div class="recommentBox">';
-				recommentBox += '<form class="recommentBox-form" action="./cedit" method="post">';
-				recommentBox += '<textarea class="commentcontent" name="comment">' + commentChange + '</textarea>';
+				recommentBox+= '<div class="recommentBox-form">'; //form 없어져서 css땜에 div추가
+				//recommentBox += '<form class="recommentBox-form" action="./cedit" method="post">';
+				recommentBox += '<textarea class="commentcontent" name="comment">' + comment.html().replaceAll(/<br>/g,'\r\n') + '</textarea>';
 				recommentBox += '<input type="hidden" name="cno" value="' + cno + '">'; //다 String으로 인지해서
-				recommentBox += '<button class="comment-btn" type="submit">댓글 수정</button>';
-				recommentBox += '</form></div>';
+				recommentBox += '<button class="comment-btn" type="button">댓글 수정</button>';
+				//recommentBox += '</form>';
+				recommentBox += '</div>';
+				recommentBox += '</div>';
 				
 				comment.html(recommentBox); // html 바꿔치기
 				
 				
 			}
 		});
+		
+		//댓글 수정		.comment-btn버튼 눌렀을 때 .cno값, .commentcontent값 가져오는 명령 만들기 
+		//(다 클래스 클래스해서 값 가져오는 명령. jquery로 만들면 됨.)
+		// 2024-01-25
+		$(document).on('click', ".comment-btn", function(){ //동적 생성된 녀석들! 얘네는 $(document).on('click', 클래스이름, 함수)
+			//alert("!");
+			if(confirm('수정하시겠습니까?')){
+				//cno값과 commentcontent 내용값 잡아오기.
+				let cno = $(this).prev().val();
+				//let content = $(this).siblings(".commentcontent").text();
+				let recomment = $('.commentcontent').val();
+				let comment = $(this).parents(".ccomment");//댓글 위치
+				alert(comment);
+				//alert("cno: " + cno + " content: " + content);
+				//잡았으면 ajax로 보내주자.
+				$.ajax({
+					url: './recomment', //if문장으로 분리시켜서 하면 기존 commentwrite에 보내도 되지만 까다로우니 새로운 거.
+					type: 'post',
+					dataType: 'text',
+					data: {'cno' : cno, 'comment' : recomment}, //변수 안 만들고 그대로 넣어도 된다.
+					success: function(result){
+						//alert('통신 성공 : ' + result);
+						if(result == 1){
+							//수정된 데이터를 화면에 보여주면 됨.
+							$(this).parent(".recommentBox").remove();
+							comment.css('backgroundColor', '#ffffff');
+							comment.css('min-height', '100px');
+							comment.css('height', 'auto'); //css도 바꿈..
+							//recomment = recomment.replaceAll(/<br>/g, '\r\n');
+							comment.html(recomment.replace(/(?:\r\n|\r|\n)/g, "<br>")); //replaceAll아니고..?
+							$(".commentDelete").show();
+							$(".commentEdit").show();
+						} else {
+							//실패 화면 재로드.
+							alert("문제가 발생했습니다. 화면을 갱신합니다.");
+							//location.href='./detail?page=${param.page}&no=${param.no}'; //이 방법도 된다.
+							location.href='./detail?page=${param.page}&no=${detail.no}'; //param은 url에서 가져오는 거.
+						}
+					},
+					error: function(error){
+						alert('문제가 발생했습니다 : ' + error);
+					}
+				});
+			}
+		});
+		
+		
+		
 		
 		//댓글 삭제 버튼을 눌렀습니다.
 		
@@ -104,7 +155,7 @@
 					url : './commentDel',	//주소
 					type : 'post',			//get, post
 					dataType: 'text',		//수신타입 json
-					data: {'no': cno},			//보낼 값
+					data: {no: cno},			//보낼 값 ('no'는 왜 아닐까..? -> json은 : 앞에껀 알아서 key로 인식)
 					success:function(result){//0, 1
 						//alert("서버에서 온 값 : " + result);
 						//나중에 여기에 if문. 일단 여기까지.
@@ -160,7 +211,7 @@
 				let no = document.createElement('input');
 				no.setAttribute("type", "hidden");
 				no.setAttribute("name", "bno");
-				no.setAttribute("value", ${detail.no });
+				no.setAttribute("value", ${detail.no }); // 305 도 사용 가능 (??)
 				//form에다가 붙이기
 				form.appendChild(text);
 				form.appendChild(no);

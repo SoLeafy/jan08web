@@ -86,6 +86,7 @@ public class Util {
 		return str; 
 	}
 
+	//이게 잘못됐다..?
 	public static String addBr(String str) {
 		str = str.replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
 		return str;

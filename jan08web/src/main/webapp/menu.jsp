@@ -10,6 +10,7 @@
 		<li onclick="url('./bootstrap')">부트스트랩</li>
 		<li onclick="url('./info')">info</li>
 		<li onclick="url('./team')">팀</li>
+		<li onclick="url('./cafe')">주문</li>
 		<c:choose>
 			<c:when test="${sessionScope.mname eq null }">
 				<li onclick="url('./login')">로그인</li>

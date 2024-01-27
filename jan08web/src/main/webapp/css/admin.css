@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+body{
+	margin: 0;
+	padding: 0;
+}
+
+.wrap{ /* 전체라서,, 100퍼로 */
+	width: 100%;
+	height: 100vh; /* 높이 100%는 안 먹음. vh라는 단위. 이것 말고도 단위 많다. */
+	display: flex; /* 아래로 떨어지는 main 올려줌 */
+	/* float left right? 배치  */
+}
+.menu{
+	width: 150px;
+	height: 100vh;
+	background-color: #7E7F9A;
+}
+.main{
+	width: calc(100% - 150px);
+	height: 100vh;
+	background-color: white;
+	position: relative;
+}
+nav{
+	margin-top: 50px;
+}
+nav ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+nav > ul > li{ /* 안으로 들어간다는 뜻이라고..? */
+	margin: 0;
+	padding: 0;
+	margin: 5px 10px; /* (시계방향) 상하 5px 좌우 10px */
+	padding: 10px 0px;
+	text-align: center;
+}
+nav > ul > li:hover{
+	background-color: #eb9486;
+	cursor: pointer;
+}
+h1{
+	margin: 0;
+	padding: 0;
+	color: white;
+	background: #272838;
+	text-align: center;
+}
+.info{
+	/* width: 200px;
+	height: 200px;
+	position: absolute;
+	top: calc(50% - 200px);
+	left: calc(50% - 200px);
+	background-color: #bde0fe; */
+	width: 200px;
+	height: 200px;
+	line-height: 200px;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background-color: #bde0fe;
+	margin-top: -100px;
+}

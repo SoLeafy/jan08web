@@ -18,8 +18,8 @@ public class MemberDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT count(*) AS count, mname FROM member WHERE mid=? AND mpw=?";
-		
+		String sql = "SELECT count(*) AS count, mname FROM member WHERE mid=? AND mpw=? AND mgrade > 4"; //여기다 등급. 근데 뷰로 써도 된다.
+		//아예 등급도 가져와서 강퇴인지 탈퇴인지 보여줘도 된다.
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getMid());

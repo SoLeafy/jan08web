@@ -216,6 +216,8 @@ $(document).ready(function(){
 					${h },&ensp;
 					</c:forEach> --%>
 					</p>
+					<br>
+					<img alt="반번호" src="./img/반번호.png">
 				</article>
 			</div>
 		</div>

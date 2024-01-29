@@ -44,16 +44,7 @@ $(function(){
 	<!-- 틀 -->
 	<div class="wrap"> <!-- container, app, wrap 등... 쓴다. -->
 		<!-- menu -->
-		<div class="menu">
-		<nav>
-			<ul>
-				<li onclick="url('./members')"><i class="xi-users"></i> 회원 관리</li>
-				<li onclick="url('./board')"><i class="xi-document"></i> 게시글 관리</li>
-				<li onclick="url('./comments')"><i class="xi-comment"></i> 댓글 관리</li>
-				<li onclick="url('./info')"><i class="xi-lock-o"></i> hachu님</li>
-			</ul>
-		</nav>
-		</div>
+		<%@ include file="menu.jsp" %>
 		<!-- 본문내용 -->
 		<div class="main">
 			<article>

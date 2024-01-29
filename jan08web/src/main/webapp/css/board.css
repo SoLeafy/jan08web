@@ -41,7 +41,12 @@ footer{
 .title a:hover{
 	color: #d8e2dc;
 }
-
+.row0{
+	background-color: #c0c0c0;	
+}
+.row1{
+	background-color: white;
+}
 .paging{
 	margin: 0 auto;
 	width: 550px;

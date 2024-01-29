@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.poseidon.db.DBConnection;
 import com.poseidon.dto.BoardDTO;
 import com.poseidon.dto.CommentDTO;
 import com.poseidon.util.Util;

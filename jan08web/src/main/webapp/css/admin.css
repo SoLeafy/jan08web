@@ -1,5 +1,12 @@
 @charset "UTF-8";
-
+/* css변수 만들기 2024-01-29
+--변수명 : 값;
+전역 변수로 만들기 :root{}
+main 색 지정할 때 변수명 자주 쓴다.
+ */
+:root{
+	--main : 45px;
+}
 body{
 	margin: 0;
 	padding: 0;
@@ -12,15 +19,24 @@ body{
 	/* float left right? 배치  */
 }
 .menu{
-	width: 150px;
+	/* 변수 사용 var(변수명) */
+	width: var(--main);
+	/* width: 150px; */
 	height: 100vh;
 	background-color: #7E7F9A;
+	overflow: hidden;
+	position: absolute; /* 기본적으로 주변꺼랑 상호작용하면서 있지만 absolute 쓰면 독단적. */
+}
+.menu:hover{
+	width: 150px;
+	transition: 0.3s;
 }
 .main{
-	width: calc(100% - 150px);
+	width: calc(100% - var(--main));
 	height: 100vh;
 	background-color: white;
-	position: relative;
+	margin-left: var(--main);
+	/* position: relative; */
 }
 nav{
 	margin-top: 50px;
@@ -29,13 +45,27 @@ nav ul{
 	margin: 0;
 	padding: 0;
 	list-style: none;
+	/* overflow: hidden; */
 }
-nav > ul > li{ /* 안으로 들어간다는 뜻이라고..? */
+nav > ul > li{ /* 안으로 들어간다는 뜻이다 */
 	margin: 0;
 	padding: 0;
 	margin: 5px 10px; /* (시계방향) 상하 5px 좌우 10px */
 	padding: 10px 0px;
-	text-align: center;
+	text-align: left;
+	padding-left: 6px;
+	/* padding-left: 5px; */
+	width: 150px;
+	overflow: hidden;
+	/* white-space: nowrap;  <- 이거하면 메뉴 줄여도 글씨가 아래로 wrapping되지 않는다고 한다. */
+}
+nav > ul > li > i{
+	margin-right: 6px;
+	/* 브라우저별로 맞출 꺼면 이렇게. 요즘은 렌더링 비슷해져서 ㄱㅊ다는것같기도... */
+	-moz-margin-right: 6px; /* firefox */
+	-o-margin-right: 6px; /* opera */
+	-webkit-margin-right: 6px; /* chrome, edge, whale등 webkit 쓰는 곳 */
+	-ms-margin-right: 6px; /* internet explorer -> 이젠 안쓰겠지만. */
 }
 nav > ul > li:hover{
 	background-color: #eb9486;

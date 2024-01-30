@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.poseidon.dto.BoardDTO;
+import com.poseidon.dto.CommentDTO;
 import com.poseidon.dto.MemberDTO;
 
 public class AdminDAO extends AbstractDAO {
@@ -150,6 +151,106 @@ public class AdminDAO extends AbstractDAO {
 		}
 		
 		return result;
+	}
+
+	public List<BoardDTO> boardList(String search) {
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT b.board_no, b.board_title, b.board_date, b.board_ip, b.board_del, "
+				+ "(SELECT count(0) FROM visitcount v WHERE v.board_no = b.board_no) AS board_count, "
+				+ "(SELECT count(0) FROM comment c WHERE c.board_no = b.board_no) AS comment, "
+				+ "m.mname "
+				+ "FROM board b JOIN member m ON (b.mno = m.mno) "
+				+ "WHERE board_title LIKE CONCAT('%', ?, '%') "
+				+ "OR board_content LIKE CONCAT('%', ?, '%') "
+				+ "OR m.mname LIKE CONCAT('%', ?, '%') "
+				+ "ORDER BY board_no DESC";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			pstmt.setString(2, search);
+			pstmt.setString(3, search);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setNo(rs.getInt("board_no"));
+				dto.setTitle(rs.getString("board_title"));
+				dto.setDate(rs.getString("board_date"));
+				dto.setIp(rs.getString("board_ip"));
+				dto.setDel(rs.getInt("board_del"));
+				dto.setCount(rs.getInt("board_count"));
+				dto.setComment(rs.getInt("comment"));
+				dto.setWrite(rs.getString("mname"));
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		
+		return list;
+	}
+
+	public int boardDel(BoardDTO dto) {
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE board SET board_del=? WHERE board_no=?";
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, Integer.toString(dto.getDel()));
+			pstmt.setInt(2, dto.getNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(null, pstmt, con);
+		}
+		
+		return result;
+	}
+
+	public List<CommentDTO> commentList() {
+		List<CommentDTO> list = new ArrayList<CommentDTO>();
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT c.cno, c.board_no, c.ccomment, "
+				+ "if(date_format(current_timestamp(),'%Y-%m-%d') = date_format(c.cdate,'%Y-%m-%d'), "
+				+ "date_format(c.cdate,'%h:%i'),date_format(c.cdate,'%m-%d')) AS cdate, "
+				+ "c.clike, c.mno, m.mid, m.mname, c.cip, c.cdel "
+				+ "FROM (comment c JOIN member m ON(c.mno = m.mno)) "
+				+ "ORDER BY c.cno DESC";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CommentDTO e = new CommentDTO();
+				e.setCno(rs.getInt("cno"));
+				e.setBoard_no(rs.getInt("board_no"));
+				e.setCdate(rs.getString("cdate"));
+				e.setClike(rs.getInt("clike"));
+				e.setMno(rs.getInt("mno"));
+				e.setMname(rs.getString("mname"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		
+		
+		return list;
 	}
 
 }

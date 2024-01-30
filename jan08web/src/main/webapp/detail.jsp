@@ -91,7 +91,7 @@
 				//let content = $(this).siblings(".commentcontent").text();
 				let recomment = $('.commentcontent').val();
 				let comment = $(this).parents(".ccomment");//댓글 위치
-				alert(comment);
+				//alert(comment);
 				//alert("cno: " + cno + " content: " + content);
 				//잡았으면 ajax로 보내주자.
 				$.ajax({

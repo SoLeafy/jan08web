@@ -21,7 +21,54 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	let del = ${row.del };
 	$(".deleted").css('background-color', 'gray');
 }); */
+$(function(){
+	$("#searchBtn").click(function(){
+		let search = $('#search').val();
+		location.href = "./board?search="+search;
+	});
+	$('.changeDel').click(function(){
+		//row.del과 row.no 가져오자.
+		let eyes = $(this);
+		let del = eyes.prev();
+		let className = $(this).parents('tr');
+		let no = className.children().first().text();
+		//alert("del: " + del + " / no: " + no);
+		$.ajax({
+			url: './board',
+			type: 'post',
+			dataType: 'text',
+			data: {'no': no, 'del': del.val()},
+			success: function(result){
+				//alert('결과 : ' + result);
+				if(result == 1){ //db에서 수정됐다고 할때 해야해서
+					if(del.val() == 1){// 1-> 0
+						className.attr('class', 'row0');
+						//className.css('background-coolor', '#FFDC46');
+						del.val(0);
+						eyes.attr('class', 'xi-eye-off-o changeDel');
+					} else {// 0 -> 1
+						className.attr('class', 'row1');
+						//className.css('background-coolor', '#ffffff');
+						del.val(1);
+						eyes.attr('class', 'xi-eye-o changeDel');
+					}
+				} else {
+					alert('수정 실패');
+				}
+				
+			},
+			error: function(error){
+				alert('에러: ' + error);
+			}
+		});//end ajax
+	});
+});
 </script>
+<style type="text/css">
+.xi-eye-o, .xi-eye-off-o:hover {
+	cursor: pointer;
+}
+</style>
 </head>
 <body>
 	<div class="wrap">
@@ -32,6 +79,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<div class="main">
 			<article>
 				<h1>게시글 관리</h1>
+				<div class="search">
+					<input type="text" id="search"><button id="searchBtn">🔍</button>
+				</div>
 				<table>
 					<thead>
 					<tr>
@@ -46,14 +96,27 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 					<tbody>
 						<c:forEach items="${list }" var="row">
 						<tr class="row${row.del }">
-							<td>${row.no }</td>
-							<td>${row.title }
-							<c:if test="${row.comment ne 0 }">&ensp;<span>${row.comment }</span></c:if>
+							<td class="d1">${row.no }</td>
+							<td class="title">
+							<a href="../detail?no=${row.no }">
+								${row.title }
+								<c:if test="${row.comment ne 0 }">&ensp;<span>${row.comment }</span></c:if>
+							</a>
 							</td>
-							<td>${row.write }</td>
-							<td>${row.date }</td>
-							<td>${row.count }</td>
-							<td>${row.del }</td>
+							<td class="d2">${row.write }</td>
+							<td class="d2">${row.date }</td>
+							<td class="d1">${row.ip }</td>
+							<td class="d1">${row.count }</td>
+							<td class="d1">
+							<input type="hidden" id="del" value="${row.del }"> <!-- value 쓸려고 넣은 input -->
+							<c:if test="${row.del eq 1 }"><i class="xi-eye-o changeDel"></i></c:if>
+							<c:if test="${row.del eq 0 }"><i class="xi-eye-off-o changeDel"></i></c:if>
+							${row.del }
+							<%-- <select id="view">
+								<option <c:if test="${row.del eq 0}">selected="selected"</c:if> value="1">숨김</option>
+								<option <c:if test="${row.del eq 1}">selected="selected"</c:if> value="2">보임</option>
+							</select> --%>
+							</td>
 						</tr>
 						</c:forEach>
 					</tbody>

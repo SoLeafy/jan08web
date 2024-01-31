@@ -282,9 +282,12 @@
 								<c:if test="${detail.mid eq '페이커' }">
 									<img class="profilePic" alt="지훈님프로필" src="./img/지훈님.png">
 								</c:if>
-								<c:if test="${detail.mid eq 'test8' }">
+								<c:if test="${detail.mid eq 'abcdef' || detail.mid eq 'jolleeda' || co.mid eq 'test8'}">
 									<img class="profilePic" alt="라라핑프로필" src="./img/라라핑.jpg">
 								</c:if>
+								<%-- <c:if test="${detail.mid eq 'jolleeda' }">
+									<img class="profilePic" alt="라라핑프로필" src="./img/라라핑.jpg">
+								</c:if> --%>
 								<c:if test="${detail.mid eq 'test9' }">
 									<img class="profilePic" alt="시러핑프로필" src="./img/시러핑.png">
 								</c:if>
@@ -299,6 +302,12 @@
 								</c:if>
 								<c:if test="${detail.mid eq 'takotako' }">
 									<img class="profilePic" alt="탁호프로필" src="./img/탁호.png">
+								</c:if>
+								<c:if test="${detail.mid eq 'chanaping' }">
+									<img class="profilePic" alt="차나핑프로필" src="./img/차나핑.PNG">
+								</c:if>
+								<c:if test="${detail.mid eq 'dypdyp' }">
+									<img class="profilePic" alt="띠용핑프로필" src="./img/띠용핑.PNG">
 								</c:if>
 								<%-- <c:if test="${sessionScope.mname ne detail.mid eq sessionScope.mid}"> --%>
 								<c:if
@@ -347,9 +356,12 @@
 									<c:if test="${co.mid eq '페이커' }">
 										<img class="profilePic" alt="지훈님프로필" src="./img/지훈님.png">
 									</c:if>
-									<c:if test="${co.mid eq 'test8' }">
+									<c:if test="${co.mid eq 'abcdef' || co.mid eq 'jolleeda' || co.mid eq 'test8'}">
 										<img class="profilePic" alt="라라핑프로필" src="./img/라라핑.jpg">
 									</c:if>
+									<%-- <c:if test="${co.mid eq 'jolleeda' }">
+										<img class="profilePic" alt="라라핑프로필" src="./img/라라핑.jpg">
+									</c:if> --%>
 									<c:if test="${co.mid eq 'test9' }">
 										<img class="profilePic" alt="시러핑프로필" src="./img/시러핑.png">
 									</c:if>
@@ -364,6 +376,12 @@
 									</c:if>
 									<c:if test="${co.mid eq 'takotako' }">
 										<img class="profilePic" alt="탁호프로필" src="./img/탁호.png">
+									</c:if>
+									<c:if test="${co.mid eq 'chanaping' }">
+										<img class="profilePic" alt="차나핑프로필" src="./img/차나핑.PNG">
+									</c:if>
+									<c:if test="${co.mid eq 'dypdyp' }">
+										<img class="profilePic" alt="띠용핑프로필" src="./img/띠용핑.PNG">
 									</c:if>
 						<!-- 지금하는중 jan24 -->
 									<input type="hidden" class="cno" value="${co.cno }">

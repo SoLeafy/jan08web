@@ -37,8 +37,37 @@ $(function(){
 			<article>
 				<h1>댓글 관리</h1>
 			</article>
-
-		
+			<div class="search">
+					<input type="text" id="search"><button id="searchBtn">🔍</button>
+				</div>
+				<table>
+					<thead>
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>글쓴이</th>
+						<th>날짜</th>
+						<th>좋아요</th>
+						<th>삭제</th>
+					</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${list }" var="row">
+						<tr class="row">
+							<td class="d1">${row.cno }</td>
+							<td class="title">
+							<a href="../detail?no=${row.board_no }">
+							${row.comment }
+							</a>
+							</td>
+							<td class="d2">${row.mname }</td>
+							<td class="d2">${row.cdate }</td>
+							<td class="d1">${row.clike }</td>
+							<td class="d1"></td>
+						</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 		</div>
 	</div>
 </body>

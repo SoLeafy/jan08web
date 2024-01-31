@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.poseidon.dto.BoardDTO;
 import com.poseidon.dto.CommentDTO;
@@ -222,7 +224,7 @@ public class AdminDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT c.cno, c.board_no, c.ccomment, "
+		String sql = "SELECT c.cno, c.board_no, SUBSTRING(REPLACE(c.ccomment, '<br>', ' '), 1, 15) AS ccomment, "
 				+ "if(date_format(current_timestamp(),'%Y-%m-%d') = date_format(c.cdate,'%Y-%m-%d'), "
 				+ "date_format(c.cdate,'%h:%i'),date_format(c.cdate,'%m-%d')) AS cdate, "
 				+ "c.clike, c.mno, m.mid, m.mname, c.cip, c.cdel "
@@ -237,6 +239,7 @@ public class AdminDAO extends AbstractDAO {
 				CommentDTO e = new CommentDTO();
 				e.setCno(rs.getInt("cno"));
 				e.setBoard_no(rs.getInt("board_no"));
+				e.setComment(rs.getString("ccomment"));;
 				e.setCdate(rs.getString("cdate"));
 				e.setClike(rs.getInt("clike"));
 				e.setMno(rs.getInt("mno"));
@@ -252,5 +255,122 @@ public class AdminDAO extends AbstractDAO {
 		
 		return list;
 	}
+	
+	public List<Map<String, Object>> ipList() {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT ino, iip, idate, iurl, idata FROM iplog ORDER BY ino DESC";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Map<String, Object> e = new HashMap<String, Object>();
+				e.put("ino", rs.getInt("ino"));
+				e.put("iip", rs.getString("iip"));
+				e.put("idate", rs.getString("idate"));
+				e.put("iurl", rs.getString("iurl"));
+				e.put("idata", rs.getString("idata"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		
+		return list;
+	}
+
+	public List<Map<String, Object>> ipList(String ip) {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT ino, iip, idate, iurl, idata FROM iplog WHERE iip=? ORDER BY ino DESC";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, ip);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Map<String, Object> e = new HashMap<String, Object>();
+				e.put("ino", rs.getInt("ino"));
+				e.put("iip", rs.getString("iip"));
+				e.put("idate", rs.getString("idate"));
+				e.put("iurl", rs.getString("iurl"));
+				e.put("idata", rs.getString("idata"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		
+		return list;
+	}
+
+	//가장 많이 접속한 ip
+	public List<Map<String, Object>> topIpList() {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT iip, COUNT(*) AS count FROM iplog GROUP BY iip ORDER BY COUNT(*) DESC LIMIT 0, 5";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("ip", rs.getString("iip"));
+				map.put("count", rs.getInt("count"));
+				list.add(map);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		
+		return list;
+	}
+
+	//최근 접속한 ip
+	public List<Map<String, Object>> latestAccessIP10() {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT iip,idate "
+	            + "FROM (SELECT DISTINCT iip, idate FROM iplog ORDER BY idate DESC) AS t "
+	            + "GROUP BY t.iip ORDER BY idate DESC; ";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("ip", rs.getString("iip"));
+				map.put("date", rs.getString("idate"));
+				list.add(map);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		
+		return list;
+	}
+
+	
 
 }

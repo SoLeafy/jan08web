@@ -169,7 +169,7 @@ int num = 100;
 		</header>
 		<div class="main">
 			<div class="mainStyle">
-				<article>
+				<article style="display:flex; flex-direction:column; justify-content:center;">
 					<div class="join-form">
 						<h1>머찐계란되기</h1>
 						<!-- <h3>(현재 가능)</h3> -->
@@ -205,6 +205,9 @@ int num = 100;
 								</div>
 							</form>
 						</div>
+					</div>
+					<div style="margin:50px;">
+						<button class="btn btn-light" onclick="location.href='https://smore.im/quiz/5xjJqtXtZ1?tm'">티니핑 테스트</button>
 					</div>
 				</article>
 			</div>
